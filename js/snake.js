@@ -15,13 +15,13 @@
 		gamearea.width = widthMap;
 		gamearea.height = heightMap;
 
-		var Block = function (x, y) { // Строительный блок 10 на 10 пикселей
-			ctx.strokeStyle = "#1c1c1c";
+		var Block = function (x, y, color) { // Строительный блок 10 на 10 пикселей
+			ctx.strokeStyle = color;
 			ctx.strokeRect(x, y, 10, 10);
 			ctx.fillRect(x + 1, y + 1, 8, 8);
 		}
 		
-		var Snake = function (course, size, x, y, speed) { // Змейка
+		var Snake = function (course, size, x, y, speed, color) { // Змейка
 			var self = this;
 			var defaultSettings = { // Значения змейки по умолчанию
 				course: 'top',
