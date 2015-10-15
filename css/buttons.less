@@ -1,0 +1,59 @@
+/* ==========================================================================
+    Buttons  Кнопки
+    =========================================================================*/
+.btn {
+    border: none;
+    .rounded(0);
+    outline: none;
+    color: #fff;
+    .inblock(middle);
+    text-align: center;
+    text-align: center;
+    line-height: normal;
+    text-decoration: none !important;
+    text-transform: uppercase;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 10px 15px;
+	.animated-css3(background-color);
+	color: #fff;
+	background-color: #e54446;
+	&:hover {
+		background-color: #d22d35;
+	}
+	&:active {
+		-webkit-box-shadow: inset 3px 3px 4px rgba(9,8,8,0.16);
+		box-shadow: inset 3px 3px 4px rgba(9,8,8,0.16);
+	}
+	&_mid {
+		min-width: 115px;
+	}
+	&_white {
+		border: 2px solid #fff;
+		background-color: #fff;
+		color: #686563;
+		&:hover {
+			background-color:transparent;
+			color: #fff;
+		}
+	}
+	&_blue {
+		background-color: #628fc6;
+		&:hover {
+			background-color: #42689e;
+		}
+	}
+	&_cancel {
+		color: #312e2d; background-color: #eeeae1;
+		&:hover {
+			background-color: darken(#eeeae1, 20%);
+		}
+	}
+}
+
+.bth:disabled, .btn[disabled="disabled"], .btn[disabled], .btn.disabled {
+    cursor: default !important;
+} 
