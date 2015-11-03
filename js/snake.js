@@ -14,95 +14,92 @@
 			ctx = gamearea.getContext('2d');
 		gamearea.width = widthMap;
 		gamearea.height = heightMap;
-		
-		
+
+
 		// конструктор точки
 		function Point(x, y, color) {
-		  this.x = x;
-		  this.y = y;
-		  this.color = color;
+			this.x = x;
+			this.y = y;
+			this.color = color;
 		}
 		// методы точки
-		Point.prototype.draw = function(x, y, color) {
+		Point.prototype.draw = function (x, y, color) {
 			ctx.strokeStyle = this.color;
 			ctx.fillStyle = this.color;
 			ctx.strokeRect(this.x, this.y, 9, 9);
 			ctx.fillRect(this.x + 1, this.y + 1, 7, 7);
 		}
+
+//		function Figure() {
+//			this._listPoint = [];
+//			this.draw = function (listPoint) {
+//				for (var i = 0; i < this._listPoint.length; i++) {
+//					this._listPoint[i].draw();
+//				}
+//			}
+//		}
+//		
+//			// горизонтальная линия
+//		function HorizontLine(xLeft, xRight, y, color) {
+//			Figure.call(this);
+//			for (x = xLeft; x <= xRight; x = x + 10) {
+//				var point = new Point(x, y,color);
+//				this._listPoint.push(point);
+//			}
+//		}
+//		
+//		
+//
+//		// вертикальная линия
+//		function VerticalLine(yTop, xBottom, x, color) {
+//			Figure.call(this);
+//			for (y = yTop; y <= xBottom; y = y + 10) {
+//				var point = new Point(x, y, color);
+//				this._listPoint.push(point);
+//			}
+//		}
+		
+//		Конструктор фигуры
+		function Figure() {
+			this.listPoint = []; //массив для точек фигуры
+		}
+		//Рисуем фигуру
+		Figure.prototype.draw = function () {
+			for (var i = 0; i < this.listPoint.length; i++) {
+				this.listPoint[i].draw();
+			}
+		}
+		
 		
 		// горизонтальная линия
 		function HorizontLine(xLeft, xRight, y, color) {
-			this.xLeft = xLeft;
-			this.xRight = xRight;
-			this.y = y;
-		  	this.color = color;
-		}
-		// рисуем линию
-		HorizontLine.prototype.draw = function(xLeft, xRight, y, color) {
-			for ( x = this.xLeft; x <= this.xRight; x=x+10) {
-				var point = new Point(x,this.y, this.color);
-				point.draw();
+			Figure.apply(this);
+			for (x = xLeft; x <= xRight; x = x + 10) {
+				var point = new Point(x, y,color);
+				this.listPoint.push(point);
+				
 			}
 		}
+		HorizontLine.prototype = Object.create(Figure.prototype);
 		
+
 		// вертикальная линия
 		function VerticalLine(yTop, xBottom, x, color) {
-			this.yTop = yTop;
-			this.xBottom = xBottom;
-			this.x = x;
-		  	this.color = color;
-		}
-		// рисуем линию
-		VerticalLine.prototype.draw = function(yTop, xBottom, x, color) {
-			for ( y = this.yTop; y <= this.xBottom; y=y+10) {
-				var point = new Point(this.x,y, this.color);
-				point.draw();
+			Figure.apply(this);
+			for (y = yTop; y <= xBottom; y = y + 10) {
+				var point = new Point(x, y, color);
+				this.listPoint.push(point);
 			}
 		}
+		VerticalLine.prototype = Object.create(Figure.prototype);
 		
 		var horizontLine = new HorizontLine(100, 180, 150, 'red');
 		horizontLine.draw();
-		
-		var verticalLine = new VerticalLine(300, 500, 150, 'blue');
+
+		var verticalLine = new VerticalLine(10, 600, 400, 'blue');
 		verticalLine.draw();
-//		function Snake (course, size, x, y, speed, color) { // Змейка
-//			var self = this;
-//			var defaultSettings = { // Значения змейки по умолчанию
-//				course: 'top',
-//				size: 2,
-//				speed: 2,
-//				x: widthMap / 2,
-//				y: heightMap / 2
-//			}
-//			var settings = function () { // Если значения не заданы берем по умолчанию
-//				if (course === undefined) {
-//					course = defaultSettings.course;
-//				}
-//				if (size === undefined) {
-//					size = defaultSettings.size;
-//				}
-//				if (x === undefined) {
-//					x = defaultSettings.x;
-//				}
-//				if (y === undefined) {
-//					y = defaultSettings.y;
-//				}
-//			}
-//			
-//			var render = function(){ // Рисуем змейку
-//				var head = new Point(x,y, color);
-//				head.draw();
-//			}
-//			
-//			var init = function () {
-//				settings();
-//				render();
-//			}
-//			init();
-//		}
-//		var snake = new Snake();
-//		var snake2 = new Snake('top', 2, 100, 100, 2, 'red');
+		
 	}
 
-	
+
 })()
