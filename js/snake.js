@@ -161,10 +161,32 @@
 			snake = new Snake(tail, 10, direction.right);
 			snake.draw();
 
-			setInterval('snake.move()', 300);
+			
 
+			
+			// Еда
+			function FoodCreator (widthMap, heightMap) {
+				
 
+				this.widthMap = widthMap;
+				this.heightMap = heightMap;
+				
 
+				var getRandomInt = function(min, max){
+				  return Math.floor((Math.random() * (max - min + 1))/10)*10 + min;
+				}
+
+				this.x = getRandomInt(0, widthMap - 10);
+				this.y = getRandomInt(0, heightMap - 10);
+				
+				
+				
+			}
+			FoodCreator.prototype = Object.create(Point.prototype);
+			
+			var food = new FoodCreator(widthMap, heightMap);
+				food.draw();
+			//Управление
 			document.onkeydown = function checkKeycode(event) {
 
 				var keycode;
@@ -205,7 +227,13 @@
 
 
 			}
-
+			
+			
+			
+			setInterval(function(){
+				snake.move();
+				
+			}, 300);
 		}
 	
 
