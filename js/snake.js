@@ -2,8 +2,18 @@
 	self = this;
 	window.onload = function () {
 		var d = document.documentElement,
-			widthMap = d.clientWidth,
-			heightMap = d.clientHeight;
+			widthMap = d.clientWidth, // ширина окна пользователя
+			heightMap = d.clientHeight; // высота
+       
+        widthMap = Math.floor(widthMap * 0.1) * 10; //округляем до десятков
+        heightMap = Math.floor(heightMap * 0.1) * 10; // округляем
+       
+        if (widthMap > 810) {
+            widthMap = 810;
+        }
+        if (heightMap > 810) {
+            heightMap = 810;
+        }
 		app(widthMap, heightMap); // После загрузки страницы определяем ширину высоту. Пуск!
 	}
 
@@ -38,7 +48,7 @@
 				ctx.strokeStyle = this.color;
 				ctx.fillStyle = this.color;
 				ctx.strokeRect(this.x, this.y, 8, 8);
-				ctx.fillRect(this.x + 1, this.y + 1, 6, 6);
+				ctx.fillRect(this.x + 2, this.y + 2, 4, 4);
 			}
 			//Стираем
 		Point.prototype.clear = function () {
@@ -103,7 +113,15 @@
 		}
 		VerticalLine.prototype = Object.create(Figure.prototype);
 
-
+        // руисуем границы
+        var topBorder = new HorizontLine (0, widthMap, 0);
+        var bottomBorder = new HorizontLine (0, widthMap, heightMap - 10);
+        var leftBorder = new VerticalLine (0, heightMap, 0);
+        var rightBorder = new VerticalLine (0, heightMap, widthMap - 10);
+        topBorder.draw();
+        bottomBorder.draw();
+        leftBorder.draw();
+        rightBorder.draw();
 		// Змейка
 
 		//направления
@@ -198,15 +216,18 @@
 		}
 
 
-		//Рисуем фигуру
+		//Рисуем еду
 		FoodCreator.prototype.createFood = function () {
 			var getRandomInt = function (min, max) {
 				return Math.floor((Math.random() * (max - min + 1)) / 10) * 10 + min;
 			}
 
-			this.x = getRandomInt(0, widthMap - 10);
-			this.y = getRandomInt(0, heightMap - 10);
+			this.x = getRandomInt(0, widthMap - 20);
+			this.y = getRandomInt(0, heightMap - 20);
+            console.log(this.x);
+            console.log(this.y);
 			return new Point(this.x, this.y);
+            
 		}
 
 		var foodCreatop = new FoodCreator(widthMap, heightMap);
@@ -258,7 +279,6 @@
 
 		setInterval(function () {
 			if (snake.eat(food)) {
-				console.log(snake.lenght);
 				food = foodCreatop.createFood();
 				food.draw();
 			} else {
